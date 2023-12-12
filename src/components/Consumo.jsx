@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { useConsumoStore } from "../store/consumo" 
+import { useLagunasStore } from "../store/lagunas"
 
 export const Consumo = ({ consumo }) => {
   const [claseExtra, setClaseExtra] = useState("")
+
+  const fetch = useLagunasStore((state) => state.fetchLagunas)
+
+  useEffect(() => {
+    fetch()
+  }, [])
 
   const determinarClasesExtra = (valorConsumo) => {
     let nuevasClases = ""

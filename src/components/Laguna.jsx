@@ -1,10 +1,15 @@
 import { Knob } from "primereact/knob"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useLagunasStore } from "../store/lagunas"
 
 export const Laguna = ({ id, airs, od, orp, onClick, onDelete }) => {
   const updateOd = useLagunasStore((state) => state.changeOdValue)
   const updateOrp = useLagunasStore((state) => state.changeOrpValue)
+  const fetch = useLagunasStore((state) => state.fetchLagunas)
+
+  useEffect(() => {
+    fetch()
+  }, [])
 
   const [value1, setValue1] = useState(od)
   const [value2, setValue2] = useState(orp)

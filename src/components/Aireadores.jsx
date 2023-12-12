@@ -2,6 +2,7 @@ import { AddAireador } from "./AddAireador"
 import { Aireador } from "./Aireador"
 import { useLagunasStore } from "../store/lagunas"
 
+// eslint-disable-next-line react/prop-types
 export const Aireadores = ({ lagunaId }) => {
   const laguna = useLagunasStore((state) =>
     state.lagunas.find((laguna) => laguna.id === lagunaId)
@@ -32,7 +33,13 @@ export const Aireadores = ({ lagunaId }) => {
       </div>
       <div className='row mx-auto'>
         {aireadores.map((aireador) => (
-          <Aireador key={aireador.id} id={aireador.id} freq={aireador.frecuencia} lagunaId={lagunaId}/>
+          <Aireador
+            key={aireador.id}
+            id={aireador.id}
+            freq={aireador.frecuencia}
+            lagunaId={lagunaId}
+            encendido={aireador.encendido}
+          />
         ))}
         <AddAireador lagunaId={lagunaId} onClick={handleAddAireador} />
       </div>

@@ -3,13 +3,13 @@ import { db } from "../firebase/config"
 import { ref, onValue, set } from "firebase/database"
 import { useLagunasStore } from "./lagunas"
 
-export const useConsumoStore = create((put, get) => {
+export const useConsumoStore = create((put) => {
   return {
     consumo: 0,
     actualizarConsumo: async () => {
       const lagunas = useLagunasStore.getState().lagunas
 
-      const incrementoConsumoPorAireador = 0.3
+      const incrementoConsumoPorAireador = 0.1
 
       const consumoTotal = lagunas.reduce((total, laguna) => {
         const aireadores = laguna.aireadores
@@ -28,7 +28,7 @@ export const useConsumoStore = create((put, get) => {
       const consumoRef = ref(db, "Consumo")
       set(consumoRef, consumoLimitado)
 
-      put({ consumo: consumoLimitado })
+      put({ consumo: Math.round(consumoLimitado* 10) / 10 })
     },
 
     fetchConsumo: () => {

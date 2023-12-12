@@ -65,13 +65,31 @@ export const useLagunasStore = create((put, get) => {
     addAireador: async (lagunaId) => {
       const aireador = {
         frecuencia: 0,
+        encendido: true,
       }
 
       push(ref(db, `Lagunas/${lagunaId}/Aireadores/`), aireador)
     },
 
+    turnOffAireador: async (lagunaId, fireid) => {
+      set(ref(db, `Lagunas/${lagunaId}/Aireadores/${fireid}/encendido/`), false)
+      set(ref(db, `Lagunas/${lagunaId}/Aireadores/${fireid}/frecuencia`), 0)
+    },
+
+    turnOnAireador: async (lagunaId, fireid) => {
+      set(ref(db, `Lagunas/${lagunaId}/Aireadores/${fireid}/encendido/`), true)
+    },
+
+    deleteAireador: async (lagunaId, fireid) => {
+      const childNode = ref(db, `Lagunas/${lagunaId}/Aireadores/${fireid}`)
+      remove(childNode)
+    },
+
     changeAireadorFrecuencia: async (lagunaId, aireadorId, value) => {
-      set(ref(db, `Lagunas/${lagunaId}/Aireadores/${aireadorId}/frecuencia`), value)
-    }
+      set(
+        ref(db, `Lagunas/${lagunaId}/Aireadores/${aireadorId}/frecuencia`),
+        value
+      )
+    },
   }
 })
